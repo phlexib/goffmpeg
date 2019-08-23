@@ -61,6 +61,11 @@ type Mediafile struct {
 	skipAudio             bool
 }
 
+/*** GETTERS ***/
+func (m *Mediafile) GetFrameRate() int {
+	return m.frameRate
+}
+
 /*** SETTERS ***/
 func (m *Mediafile) SetAudioFilter(v string) {
 	m.audioFilter = v
