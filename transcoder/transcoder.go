@@ -79,7 +79,7 @@ func (t Transcoder) GetCommand() []string {
 }
 
 // Initialize Init the transcoding process
-func (t *Transcoder) Initialize(inputPath string, outputPath string) error {
+func (t *Transcoder) Initialize(inputPaths []string, outputPath string) error {
 	var err error
 	var out bytes.Buffer
 	var Metadata models.Metadata
@@ -93,10 +93,20 @@ func (t *Transcoder) Initialize(inputPath string, outputPath string) error {
 		}
 	}
 
+	inputPath := inputPaths[0]
+	overlayPath := inputPaths[1]
 	if inputPath == "" {
 		return errors.New("error on transcoder.Initialize: inputPath missing")
 	}
 
+	inputStrings := ""
+	for _, i := range inputPaths {
+		if i == "" {
+			return errors.New("error on transcoder.Initialize: inputPath missing")
+		}
+		inputStrings += "-i " + i + " "
+	}
+	fmt.Println(inputStrings)
 	command := []string{"-i", inputPath, "-print_format", "json", "-show_format", "-show_streams", "-show_error"}
 
 	cmd := exec.Command(cfg.FfprobeBin, command...)
@@ -115,6 +125,7 @@ func (t *Transcoder) Initialize(inputPath string, outputPath string) error {
 	MediaFile := new(models.Mediafile)
 	MediaFile.SetMetadata(Metadata)
 	MediaFile.SetInputPath(inputPath)
+	MediaFile.SetOverlayPath(overlayPath)
 	MediaFile.SetOutputPath(outputPath)
 
 	// Set transcoder configuration

@@ -42,6 +42,7 @@ type Mediafile struct {
 	seekTimeInput         string
 	inputPath             string
 	hideBanner            bool
+	overlayPath           string
 	outputPath            string
 	outputFormat          string
 	copyTs                bool
@@ -59,12 +60,6 @@ type Mediafile struct {
 	audioFilter           string
 	skipVideo             bool
 	skipAudio             bool
-}
-
-/*** GETTERS ***/
-//GetFrameRate returns
-func (m *Mediafile) GetFrameRate() int {
-	return m.frameRate
 }
 
 /*** SETTERS ***/
@@ -203,6 +198,11 @@ func (m *Mediafile) SetCopyTs(val bool) {
 
 func (m *Mediafile) SetInputPath(val string) {
 	m.inputPath = val
+}
+
+//SetOverlayPath set an extra input file for Overlay
+func (m *Mediafile) SetOverlayPath(val string) {
+	m.overlayPath = val
 }
 
 func (m *Mediafile) SetHideBanner(val bool) {
@@ -489,7 +489,7 @@ func (m *Mediafile) ToStrCommand() []string {
 		"InputInitialOffset",
 		"InputPath",
 		"HideBanner",
-
+		"OverlayPath",
 		"Aspect",
 		"Resolution",
 		"FrameRate",
@@ -577,6 +577,10 @@ func (m *Mediafile) ObtainAspect() []string {
 
 func (m *Mediafile) ObtainInputPath() []string {
 	return []string{"-i", m.inputPath}
+}
+
+func (m *Mediafile) ObtainOverlayPath() []string {
+	return []string{"-i", m.overlayPath}
 }
 
 func (m *Mediafile) ObtainHideBanner() []string {
