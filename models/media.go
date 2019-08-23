@@ -62,6 +62,7 @@ type Mediafile struct {
 }
 
 /*** GETTERS ***/
+//GetFrameRate returns
 func (m *Mediafile) GetFrameRate() int {
 	return m.frameRate
 }
