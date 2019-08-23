@@ -56,7 +56,7 @@ func (t Transcoder) Process() *exec.Cmd {
 	return t.process
 }
 
-// MediaFile Get the ttranscoding media file.
+// MediaFile Get the transcoding media file.
 func (t Transcoder) MediaFile() *models.Mediafile {
 	return t.mediafile
 }

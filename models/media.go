@@ -7,6 +7,7 @@ import (
 	"strings"
 )
 
+//Mediafile initialize a Media object
 type Mediafile struct {
 	aspect                string
 	resolution            string
