@@ -553,7 +553,7 @@ func (m *Mediafile) ObtainAudioFilter() []string {
 
 func (m *Mediafile) ObtainVideoFilter() []string {
 	if m.videoFilter != "" {
-		return []string{"-vf", m.videoFilter}
+		return []string{"-filter_complex", m.videoFilter}
 	}
 	return nil
 }

@@ -12,9 +12,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/xfrr/goffmpeg/ffmpeg"
-	"github.com/xfrr/goffmpeg/models"
-	"github.com/xfrr/goffmpeg/utils"
+	"github.com/phlexib/goffmpeg/ffmpeg"
+	"github.com/phlexib/goffmpeg/models"
+	"github.com/phlexib/goffmpeg/utils"
 )
 
 // Transcoder Main struct
@@ -106,7 +106,7 @@ func (t *Transcoder) Initialize(inputPaths []string, outputPath string) error {
 		}
 		inputStrings += "-i " + i + " "
 	}
-	fmt.Println(inputStrings)
+
 	command := []string{"-i", inputPath, "-print_format", "json", "-show_format", "-show_streams", "-show_error"}
 
 	cmd := exec.Command(cfg.FfprobeBin, command...)
@@ -143,7 +143,10 @@ func (t *Transcoder) Run(progress bool) <-chan error {
 
 	if !progress {
 		command = append([]string{"-nostats", "-loglevel", "0"}, command...)
+
 	}
+	fmt.Println(t.configuration.FfmpegBin)
+	fmt.Println(command)
 
 	proc := exec.Command(t.configuration.FfmpegBin, command...)
 	if progress {
